@@ -1,12 +1,16 @@
 import React from 'react';
 import logo from './logo.svg';
+import CssBaseline from "@material-ui/core/CssBaseline";
 import './App.css';
-import NavBar from './components/NavBar';
+import NavBar from './components/NavBar/NavBar';
+import Home from "./components/Home/Home";
 
 function App() {
+    const greeting = "Bienvenido a React Store :)";
   return (
     <div className="App">
       <NavBar/>
+      <Home gretting={greeting}/>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import './NavBar.css';
+import CartIcon from "../CartIcon/CartIcon";
 
 class NavBar extends Component {
     render() {
         return (
             <ul id="button">
+                <li>
+
+                </li>
                 <li>
                     <a href="#">
                         Inicio
@@ -17,7 +21,7 @@ class NavBar extends Component {
                 </li>
                 <li>
                     <a href="#">
-                        Carrito
+                        <CartIcon/>
                     </a>
                 </li>
             </ul>
