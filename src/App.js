@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
-import CssBaseline from "@material-ui/core/CssBaseline";
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
+import ItemCount from './components/ItemCount/ItemCount';
 import Home from "./components/Home/Home";
 
 function App() {
     const greeting = "Bienvenido a React Store :)";
-  return (
+    const [quantity, setQuantity] = useState(1);
+
+    return (
     <div className="App">
       <NavBar/>
       <Home gretting={greeting}/>
+      <ItemCount
+          initial={1} // valor de inicio del contador
+          min={0} // valor minimo permitido
+          max={10}  // valor maximo permitido -> esto deberia ser el stock de cada producto
+          setQuantity={setQuantity}
+      />
+
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
