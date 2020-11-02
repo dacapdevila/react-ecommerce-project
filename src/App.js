@@ -4,10 +4,12 @@ import './App.css';
 import NavBar from './components/NavBar/NavBar';
 import ItemCount from './components/ItemCount/ItemCount';
 import Home from "./components/Home/Home";
+import ItemList from "./components/ItemList/ItemList";
 
 function App() {
     const greeting = "Bienvenido a React Store :)";
     const [quantity, setQuantity] = useState(1);
+
 
     return (
     <div className="App">
@@ -19,6 +21,7 @@ function App() {
           max={10}  // valor maximo permitido -> esto deberia ser el stock de cada producto
           setQuantity={setQuantity}
       />
+      <ItemList/>
 
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />

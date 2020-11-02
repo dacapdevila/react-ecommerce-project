@@ -1,0 +1,8 @@
+.list-container {
+    margin: 30px auto;
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
