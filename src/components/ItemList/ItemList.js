@@ -57,9 +57,13 @@ const ItemList = () => {
             console.log('ejecutando loadProducts');
             setTimeout(function(){
                 resolve(
-                    setProducts(arrayProducts)
+                    arrayProducts
                 );
             }, 2000);
+        });
+
+        loadProducts.then( ( successMessage ) => {
+            setProducts(successMessage);
         });
 
         loadProducts.finally( () => {
