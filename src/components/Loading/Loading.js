@@ -1,6 +1,6 @@
 import React from "react";
 
-const Loader = ({ text }) => {
+const Loading = ({ text }) => {
     return (
         <div className="loading">
             <div className="sk-circle">
@@ -22,4 +22,4 @@ const Loader = ({ text }) => {
     );
 };
 
-export default Loader;
+export default Loading;

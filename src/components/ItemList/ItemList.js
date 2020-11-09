@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Loader from "../Loader/Loader";
+import ItemDetailContainer from "../ItemDetailContainer/ItemDetailContainer";
+import Loading from "../Loading/Loading";
 import Item from "../Item/Item";
 import "./ItemList.css";
 
@@ -48,10 +49,10 @@ const ItemList = () => {
         }
     ];
     const [products, setProducts] = useState([]);
-    const [loader, setLoader] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     useEffect( () => {
-        setLoader(true);
+        setLoading(true);
 
         let loadProducts = new Promise((resolve, reject) => {
             console.log('ejecutando loadProducts');
@@ -67,7 +68,7 @@ const ItemList = () => {
         });
 
         loadProducts.finally( () => {
-                setLoader(false);
+                setLoading(false);
             }
         );
 
@@ -76,7 +77,7 @@ const ItemList = () => {
 
     return (
         <div className="list-container" id="list-container">
-            {loader ? (
+            {loading ? (
                 <p>Cargando productos</p>
             ) : (
                 <div className="list-container_details">
@@ -86,7 +87,7 @@ const ItemList = () => {
                     <div className="list-container_list">
                         {products.map((product) => {
                             return (
-                                <Item
+                                <ItemDetailContainer
                                     key={product.id}
                                     product={product}
                                 />
