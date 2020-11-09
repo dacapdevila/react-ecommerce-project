@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Loader from "../Loader/Loader";
 import Item from "../Item/Item";
 import "./ItemList.css";
 
@@ -9,33 +10,33 @@ const ItemList = () => {
             id: 1,
             name: 'Coca Cola',
             description: 'Alto en azucares',
-            image: '../../assets/coca.jpg',
+            image: '../../assets/coca-cola.webp',
             stock: 2,
-            price: 1.00
+            price: 139.99
         },
         {
             id: 2,
             name: 'Fanta',
             description: 'Tambien es alta en azucares',
-            image: '../../assets/fanta.jpg',
+            image: '../../assets/fanta.webp',
             stock: 4,
-            price: 3.50
+            price: 152.19
         },
         {
             id: 3,
-            name: 'Pepsi',
+            name: 'Pepsi Light',
             description: 'Copia de la coca cola',
-            image: '../../assets/pepsi.webp',
+            image: '../../assets/pepsi-light.webp',
             stock: 6,
-            price: 8.50
+            price: 114.99
         },
         {
             id: 4,
             name: 'Seven Up',
             description: 'Ideal si estas enfermo',
-            image: '../../assets/seven-up.jpg',
+            image: '../../assets/seven-up.webp',
             stock: 8,
-            price: 6.50
+            price: 99.00
         },
         {
             id: 5,
@@ -43,25 +44,30 @@ const ItemList = () => {
             description: 'Popular',
             image: '../../assets/manaos.webp',
             stock: 10,
-            price: 10.50
+            price: 60.19
         }
     ];
     const [products, setProducts] = useState([]);
     const [loader, setLoader] = useState(true);
 
-    let loadProducts = new Promise((resolve, reject) => {
-        console.log('ejecutando loadProducts'); // Por que se esta ejecutando tantas veces en la consola?
-        setTimeout(function(){
-            resolve(
-                setProducts(arrayProducts)
-            );
-        }, 2000);
-    });
+    useEffect( () => {
+        setLoader(true);
 
-    loadProducts.finally( () => {
-        setLoader(false);
-        }
-    );
+        let loadProducts = new Promise((resolve, reject) => {
+            console.log('ejecutando loadProducts');
+            setTimeout(function(){
+                resolve(
+                    setProducts(arrayProducts)
+                );
+            }, 2000);
+        });
+
+        loadProducts.finally( () => {
+                setLoader(false);
+            }
+        );
+
+    }, []);
 
 
     return (
