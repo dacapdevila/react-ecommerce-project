@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
 import Home from "./components/Home/Home";
@@ -13,9 +14,17 @@ function App() {
     return (
         <div className="App">
             <CartContext.Provider value={{ qnt, setQnt, cart, setCart }}>
-                <NavBar/>
-                <Home gretting={greeting}/>
-                <ItemList/>
+                <Router>
+                    <NavBar/>
+                    <Switch>
+                        <Route exact path="/">
+                            <Home greeting={greeting} />
+                        </Route>
+                    </Switch>
+
+                    <ItemList/>
+
+                </Router>
             </CartContext.Provider>
         </div>
     );
