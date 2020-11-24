@@ -31,7 +31,8 @@ const ItemDetail = ({ product }) => {
             description: article.description,
             image: article.image,
             stock: article.stock,
-            price: article.price
+            price: article.price,
+            quantity: article.quantity
         };
 
         setCart((value) => [...value, prod]);

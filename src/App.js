@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
-import Home from "./components/Home/Home";
-import ItemList from "./components/ItemList/ItemList";
+import Home from "./pages/Home/Home";
+import Cart from "./pages/Cart/Cart";
+import ItemDetailPage from "./pages/ItemDetailPage/ItemDetailPage";
+import Categories from "./pages/Categories/Categories";
 import CartContext from "./globals/cartContext";
 
 function App() {
@@ -20,9 +22,16 @@ function App() {
                         <Route exact path="/">
                             <Home greeting={greeting} />
                         </Route>
+                        <Route path="/item/:id">
+                            <ItemDetailPage />
+                        </Route>
+                        {/*<Route path="/categories/:categoryId">*/}
+                        {/*    <Categories />*/}
+                        {/*</Route>*/}
+                        <Route>
+                            <Cart />
+                        </Route>
                     </Switch>
-
-                    <ItemList/>
 
                 </Router>
             </CartContext.Provider>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ItemDetailContainer from "../ItemDetailContainer/ItemDetailContainer";
 import Loading from "../Loading/Loading";
 import Item from "../Item/Item";
-import "./ItemList.css";
 
 const ItemList = () => {
 
@@ -13,7 +12,7 @@ const ItemList = () => {
             description: 'Alto en azucares',
             image: '../../assets/coca-cola.webp',
             stock: 2,
-            price: 139.99
+            price: 139
         },
         {
             id: 2,
@@ -21,7 +20,7 @@ const ItemList = () => {
             description: 'Tambien es alta en azucares',
             image: '../../assets/fanta.webp',
             stock: 4,
-            price: 152.19
+            price: 152
         },
         {
             id: 3,
@@ -29,7 +28,7 @@ const ItemList = () => {
             description: 'Copia de la coca cola',
             image: '../../assets/pepsi-light.webp',
             stock: 6,
-            price: 114.99
+            price: 114
         },
         {
             id: 4,
@@ -37,7 +36,7 @@ const ItemList = () => {
             description: 'Ideal si estas enfermo',
             image: '../../assets/seven-up.webp',
             stock: 8,
-            price: 99.00
+            price: 99
         },
         {
             id: 5,
@@ -45,7 +44,7 @@ const ItemList = () => {
             description: 'Popular',
             image: '../../assets/manaos.webp',
             stock: 10,
-            price: 60.19
+            price: 60
         }
     ];
     const [products, setProducts] = useState([]);

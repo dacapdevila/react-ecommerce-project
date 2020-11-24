@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './NavBar.css';
 import CartIcon from "../CartIcon/CartIcon";
 
@@ -10,19 +11,19 @@ class NavBar extends Component {
 
                 </li>
                 <li>
-                    <a href="#">
+                    <Link to="/">
                         Inicio
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="#">
+                    <Link to="/">
                         Productos
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="#">
-                        <CartIcon/>
-                    </a>
+                    <Link to="/cart">
+                        <CartIcon />
+                    </Link>
                 </li>
             </ul>
         );
