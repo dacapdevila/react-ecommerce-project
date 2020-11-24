@@ -2,74 +2,31 @@ import React, { useState, useEffect } from "react";
 import ItemDetailContainer from "../ItemDetailContainer/ItemDetailContainer";
 import Loading from "../Loading/Loading";
 import Item from "../Item/Item";
+import {getFirestore} from "../../firebase";
 
 const ItemList = () => {
-
-    const arrayProducts = [
-        {
-            id: 1,
-            name: 'Coca Cola',
-            description: 'Alto en azucares',
-            image: '../../assets/coca-cola.webp',
-            stock: 2,
-            price: 139
-        },
-        {
-            id: 2,
-            name: 'Fanta',
-            description: 'Tambien es alta en azucares',
-            image: '../../assets/fanta.webp',
-            stock: 4,
-            price: 152
-        },
-        {
-            id: 3,
-            name: 'Pepsi Light',
-            description: 'Copia de la coca cola',
-            image: '../../assets/pepsi-light.webp',
-            stock: 6,
-            price: 114
-        },
-        {
-            id: 4,
-            name: 'Seven Up',
-            description: 'Ideal si estas enfermo',
-            image: '../../assets/seven-up.webp',
-            stock: 8,
-            price: 99
-        },
-        {
-            id: 5,
-            name: 'Manaos',
-            description: 'Popular',
-            image: '../../assets/manaos.webp',
-            stock: 10,
-            price: 60
-        }
-    ];
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect( () => {
         setLoading(true);
+        const db = getFirestore();
+        const itemCollection = db.collection('items');
 
-        let loadProducts = new Promise((resolve, reject) => {
-            console.log('ejecutando loadProducts');
-            setTimeout(function(){
-                resolve(
-                    arrayProducts
-                );
-            }, 2000);
-        });
-
-        loadProducts.then( ( successMessage ) => {
-            setProducts(successMessage);
-        });
-
-        loadProducts.finally( () => {
-                setLoading(false);
+        itemCollection.get().then( (querySnapshot) => {
+            if (querySnapshot.size === 0) {
+                console.log('No hay resultados');
             }
-        );
+            setProducts(
+                querySnapshot.docs.map( (doc) => {
+                    return { id: doc.id, ...doc.data() };
+                })
+            )
+        }).catch( (error) => {
+            console.log('Error en la busqueda', error);
+        }).finally( () => {
+            setLoading(false);
+        });
 
     }, []);
 

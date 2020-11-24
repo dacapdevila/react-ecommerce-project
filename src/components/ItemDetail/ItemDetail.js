@@ -27,7 +27,7 @@ const ItemDetail = ({ product }) => {
 
         const prod = {
             id: article.id,
-            name: article.name,
+            name: article.title,
             description: article.description,
             image: article.image,
             stock: article.stock,
@@ -53,7 +53,7 @@ const ItemDetail = ({ product }) => {
                 onClick={handleClick}
                 className="item-detail__btn"
             >
-                Comprar {quantity} {quantity > 1 ? 'unidades' : 'unidad' } de {product.name}
+                Comprar {quantity} {quantity > 1 ? 'unidades' : 'unidad' } de {product.title}
             </Button>
         </div>
     );

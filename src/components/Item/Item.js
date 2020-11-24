@@ -6,12 +6,12 @@ const Item = ({ product }) => {
 
     return (
         <div className="link">
-            <a href={'/item/' + product.id}>
+            <a href={'/item/' + product.url}>
                 <div className="counter link__item" style={{ width: "15rem" }}>
                     <div className="counter__content">
                         <h5 className="card-title">{name}</h5>
                         <img
-                            src={image}
+                            src={'../../' + image.path}
                             className="card-img-top"
                             alt="Imagen de Producto"
                             width="75px;"
