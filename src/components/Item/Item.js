@@ -2,14 +2,14 @@ import React from "react";
 import "./Item.css";
 
 const Item = ({ product }) => {
-    const { name, description, price, image } = product;
+    const { title, description, price, image } = product;
 
     return (
         <div className="link">
-            <a href={'/item/' + product.url}>
+            <a href={'/item/' + product.id}>
                 <div className="counter link__item" style={{ width: "15rem" }}>
                     <div className="counter__content">
-                        <h5 className="card-title">{name}</h5>
+                        <h5 className="card-title">{title}</h5>
                         <img
                             src={'../../' + image.path}
                             className="card-img-top"

@@ -25,9 +25,9 @@ function App() {
                         <Route path="/item/:id">
                             <ItemDetailPage />
                         </Route>
-                        {/*<Route path="/categories/:categoryId">*/}
-                        {/*    <Categories />*/}
-                        {/*</Route>*/}
+                        <Route path="/categories/:categoryId">
+                            <Categories />
+                        </Route>
                         <Route>
                             <Cart />
                         </Route>
