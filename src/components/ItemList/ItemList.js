@@ -3,6 +3,7 @@ import ItemDetailContainer from "../ItemDetailContainer/ItemDetailContainer";
 import Loading from "../Loading/Loading";
 import Item from "../Item/Item";
 import {getFirestore} from "../../firebase";
+import { Link } from "react-router-dom";
 
 const ItemList = () => {
     const [products, setProducts] = useState([]);
@@ -37,6 +38,11 @@ const ItemList = () => {
                 <p>Cargando productos</p>
             ) : (
                 <div className="list-container_details">
+                    <div className="list-container__details-categories">
+                        <h2>Categorías</h2>
+                        <Link to="/categories/1">Gaseosas</Link>
+                        <Link to="/categories/2">Alfajores</Link>
+                    </div>
                     <div className="list-container_details-title">
                         <h3>Productos</h3>
                     </div>

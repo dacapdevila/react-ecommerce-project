@@ -15,10 +15,12 @@ const Categories = () => {
         const itemsByCategory = itemCollection.where(
             'categoryId',
             '==',
-            categoryId
+            parseFloat(categoryId)
         );
 
-        itemsByCategory.get().then( (querySnapshot) => {
+        itemsByCategory
+            .get()
+            .then( (querySnapshot) => {
             if ( querySnapshot.size === 0 ) {
                 console.log('No hay resultados');
             }
@@ -42,10 +44,9 @@ const Categories = () => {
                     <Loading text="Cargando productos" />
                 ) : (
                     <div className="categories_list">
-                        {products.map( (product) => {
-                            return <ItemDetail product={product} key={product.id}/>;
+                        {products.map((product) => {
+                            return <ItemDetail product={product} key={product.id} />;
                         })}
-                        }
                     </div>
                 )
             }
