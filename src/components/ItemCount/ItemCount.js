@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import RemoveIcon from "@material-ui/icons/Remove";
 import AddIcon from "@material-ui/icons/Add";
-// import "./ItemCount.css"; // No agregados aún.
+import './ItemCount.css';
+import {Button, Card} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 const ItemCount = ({ initial, min, max, setQuantity }) => {
     const [counter, setCounter] = useState(initial);
@@ -19,19 +21,19 @@ const ItemCount = ({ initial, min, max, setQuantity }) => {
     }, [counter, setQuantity]);
 
     return (
-        <div className="counter">
-            <div className="counter_content">
-                <div className="counter_content-controls">
-                      <span className="counter_content-controls-subtract-icon" onClick={handleDecrement}>
-                        <RemoveIcon/>
-                      </span>
-                    <span className="counter_content-controls-counter-value"> {counter} </span>
-                    <span className="counter_content-controls-add-icon" onClick={handleIncrement}>
-                        <AddIcon/>
-                    </span>
-                </div>
-            </div>
-        </div>
+        <Card>
+            <Card.Body>
+                <Button variant="outline-primary" onClick={handleDecrement}>
+                    <RemoveIcon/>
+                </Button>
+                <Button variant="outline-info">
+                    { counter }
+                </Button>
+                <Button variant="outline-primary" onClick={handleIncrement}>
+                    <AddIcon/>
+                </Button>
+            </Card.Body>
+        </Card>
     );
 };
 

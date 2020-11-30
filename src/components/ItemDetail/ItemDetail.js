@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, Fragment } from "react";
 import ItemCount from "../ItemCount/ItemCount";
 import Item from "../Item/Item";
 import CartContext from "../../globals/cartContext";
-import { Button } from "@material-ui/core";
+import {Button, Card} from "react-bootstrap";
 
 const ItemDetail = ({ product }) => {
     const { setCart, setQnt } = useContext(CartContext);
@@ -11,13 +11,6 @@ const ItemDetail = ({ product }) => {
     useEffect(() => {
         setArticle(product);
     }, [product]);
-
-    const style = {
-        marginBottom: "20px",
-        display: "flex",
-        alignItems: "center",
-        flexDirection: "column",
-    };
 
     const [quantity, setQuantity] = useState(1);
 
@@ -39,7 +32,7 @@ const ItemDetail = ({ product }) => {
     };
 
     return (
-        <div style={style} className="item-detail">
+        <Fragment>
             <Item product={product} />
             <ItemCount
                 initial={1}
@@ -47,15 +40,15 @@ const ItemDetail = ({ product }) => {
                 max={product.stock}
                 setQuantity={setQuantity}
             />
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={handleClick}
-                className="item-detail__btn"
-            >
-                Comprar {quantity} {quantity > 1 ? 'unidades' : 'unidad' } de {product.title}
-            </Button>
-        </div>
+            <Card className="mb-5">
+                <Card.Footer>
+                    <Button color="primary" onClick={handleClick}>
+                        Comprar {quantity} {quantity > 1 ? 'unidades' : 'unidad' } de {product.title}
+                    </Button>
+                </Card.Footer>
+            </Card>
+        </Fragment>
+
     );
 };
 

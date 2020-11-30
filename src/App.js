@@ -7,6 +7,7 @@ import Cart from "./pages/Cart/Cart";
 import ItemDetailPage from "./pages/ItemDetailPage/ItemDetailPage";
 import Categories from "./pages/Categories/Categories";
 import CartContext from "./globals/cartContext";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
     const greeting = "Bienvenido a React Store :)";

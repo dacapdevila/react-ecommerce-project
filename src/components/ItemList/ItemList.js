@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import ItemDetailContainer from "../ItemDetailContainer/ItemDetailContainer";
 import Loading from "../Loading/Loading";
-import Item from "../Item/Item";
+import { Container, Row, Col } from 'react-bootstrap';
 import {getFirestore} from "../../firebase";
-import { Link } from "react-router-dom";
+import Categories from "../Categories/Categories";
+import Products from "../Products/Products";
 
 const ItemList = () => {
     const [products, setProducts] = useState([]);
@@ -33,32 +33,20 @@ const ItemList = () => {
 
 
     return (
-        <div className="list-container" id="list-container">
+        <Container fluid>
             {loading ? (
-                <p>Cargando productos</p>
+                <Loading text=""></Loading>
             ) : (
-                <div className="list-container_details">
-                    <div className="list-container__details-categories">
-                        <h2>Categorías</h2>
-                        <Link to="/categories/1">Gaseosas</Link>
-                        <Link to="/categories/2">Alfajores</Link>
-                    </div>
-                    <div className="list-container_details-title">
-                        <h3>Productos</h3>
-                    </div>
-                    <div className="list-container_list">
-                        {products.map((product) => {
-                            return (
-                                <ItemDetailContainer
-                                    key={product.id}
-                                    product={product}
-                                />
-                            );
-                        })}
-                    </div>
-                </div>
+                <Row>
+                    <Col md={2} lg={2} xl={2}>
+                        <Categories />
+                    </Col>
+                    <Col md={10} lg={10} xl={10}>
+                        <Products products={products} />
+                    </Col>
+                </Row>
             )}
-        </div>
+        </Container>
     );
 };
 

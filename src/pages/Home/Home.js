@@ -1,14 +1,17 @@
-
 import React from "react";
 import ItemList from "../../components/ItemList/ItemList";
-
+import { Container, Row, Col } from 'react-bootstrap';
 
 const Home = ({ greeting }) => {
     return (
-        <main className="home">
-            <div className="home__title">
-                <h1>{greeting}</h1>
-            </div>
+        <main>
+            <Container fluid className="my-5">
+                <Row className="mt-5">
+                    <Col>
+                        <h1>{greeting}</h1>
+                    </Col>
+                </Row>
+            </Container>
             <ItemList />
         </main>
     );

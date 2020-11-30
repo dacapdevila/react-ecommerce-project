@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import Table from "../../components/Table/Table";
+import CartTable from "../../components/CartTable/CartTable";
 import Checkout from "../../components/CheckOut/CheckOut";
 import CartContext from "../../globals/cartContext";
 
@@ -29,7 +29,7 @@ const Cart = () => {
                 messageConditional
             ) : (
                 <div>
-                    <Table />
+                    <CartTable />
                     <Checkout />
                 </div>
             )}
