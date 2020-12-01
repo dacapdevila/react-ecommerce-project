@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Loading from "../Loading/Loading";
 import { Container, Row, Col } from 'react-bootstrap';
-import {getFirestore} from "../../firebase";
+import firebase from "../../firebase";
 import Categories from "../Categories/Categories";
 import Products from "../Products/Products";
 
@@ -11,8 +11,7 @@ const ItemList = () => {
 
     useEffect( () => {
         setLoading(true);
-        const db = getFirestore();
-        const itemCollection = db.collection('items');
+        const itemCollection = firebase.db.collection('items');
 
         itemCollection.get().then( (querySnapshot) => {
             if (querySnapshot.size === 0) {

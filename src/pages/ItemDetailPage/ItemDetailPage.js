@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import ItemCount from "../../components/ItemCount/ItemCount";
 import Loading from "../../components/Loading/Loading";
 import CartContext from "../../globals/cartContext";
-import { getFirestore } from "../../firebase";
+import firebase from "../../firebase";
 
 const ItemDetailPage = ({ onAdd }) => {
     const { setCart, setQnt } = useContext(CartContext);
@@ -14,7 +14,7 @@ const ItemDetailPage = ({ onAdd }) => {
 
     useEffect(() => {
         let isSubscribed = true;
-        const db = getFirestore();
+        const db = firebase.db;
         const itemCollection = db.collection("items");
         const item = itemCollection.doc(id);
 

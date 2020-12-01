@@ -8,9 +8,6 @@ class NavBar extends Component {
         return (
             <ul id="button">
                 <li>
-
-                </li>
-                <li>
                     <Link to="/">
                         Inicio
                     </Link>
@@ -18,6 +15,16 @@ class NavBar extends Component {
                 <li>
                     <Link to="/">
                         Productos
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/register">
+                        Crear Cuenta
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/login">
+                        Iniciar sesión
                     </Link>
                 </li>
                 <li>

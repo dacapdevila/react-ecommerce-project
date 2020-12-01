@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ItemDetail from "../../components/ItemDetail/ItemDetail";
 import Loading from "../../components/Loading/Loading";
-import { getFirestore } from "../../firebase";
+import firebase from "../../firebase";
 
 const Categories = () => {
     const [products, setProducts] = useState([]);
@@ -10,7 +10,7 @@ const Categories = () => {
     const { categoryId } = useParams();
 
     useEffect( () => {
-        const db = getFirestore();
+        const db = firebase.db;
         const itemCollection = db.collection('items');
         const itemsByCategory = itemCollection.where(
             'categoryId',

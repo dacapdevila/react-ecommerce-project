@@ -6,6 +6,8 @@ import CartContext from "../../globals/cartContext";
 
 const Cart = () => {
     const { cart } = useContext(CartContext);
+    const currentUrl = window.location.pathname;
+    const check = cart.length === 0 && currentUrl === '/cart';
 
     const messageConditional = (
         <div className="card text-center cart-message">
@@ -25,7 +27,7 @@ const Cart = () => {
 
     return (
         <div className="cart">
-            {cart.length === 0 ? (
+            { cart.length === 0 ? (
                 messageConditional
             ) : (
                 <div>
@@ -38,3 +40,4 @@ const Cart = () => {
 };
 
 export default Cart;
+
