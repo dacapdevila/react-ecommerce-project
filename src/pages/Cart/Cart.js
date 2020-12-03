@@ -1,13 +1,11 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import CartTable from "../../components/CartTable/CartTable";
-import Checkout from "../../components/CheckOut/CheckOut";
+import Summary from "../../components/Summary/Summary";
 import CartContext from "../../globals/cartContext";
 
 const Cart = () => {
     const { cart } = useContext(CartContext);
-    const currentUrl = window.location.pathname;
-    const check = cart.length === 0 && currentUrl === '/cart';
 
     const messageConditional = (
         <div className="card text-center cart-message">
@@ -32,7 +30,7 @@ const Cart = () => {
             ) : (
                 <div>
                     <CartTable />
-                    <Checkout />
+                    <Summary />
                 </div>
             )}
         </div>

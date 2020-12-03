@@ -13,6 +13,8 @@ import ItemDetailPage from "./pages/ItemDetailPage/ItemDetailPage";
 import Categories from "./pages/Categories/Categories";
 import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
+import Contact from "./pages/Contact/Contact";
+import CheckOut from "./pages/CheckOut/CheckOut";
 
 function App() {
     const greeting = "Bienvenido a React Store :)";
@@ -35,11 +37,17 @@ function App() {
                             <Route path="/categories/:categoryId">
                                 <Categories />
                             </Route>
+                            <Route path="/checkout">
+                                <CheckOut />
+                            </Route>
                             <Route path="/register">
                                 <Register />
                             </Route>
                             <Route path="/login">
                                 <Login />
+                            </Route>
+                            <Route path="/contact">
+                                <Contact />
                             </Route>
                             <Route>
                                 <Cart />

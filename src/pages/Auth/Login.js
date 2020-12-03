@@ -5,6 +5,7 @@ import useValidation from "../../hooks/useValidation";
 import loginValidation from "../../validations/loginValidation";
 import Title from "../../ui/Title/Title";
 import Error from "../../ui/Error/Error";
+import { CustomButton, CustomField } from "../../ui/Form/Form";
 
 const initialState = {
     email : '',
@@ -40,12 +41,15 @@ const Login = ({ history }) => {
 
                     <Col sm={12} md={6} lg={6} xl={6}>
 
-                        <Form.Group controlId="email">
-                            <Form.Label className="text-left">
-                                Email
-                            </Form.Label>
-                            <Form.Control type="email" placeholder="Ingresa tu email" name="email" onChange={handleChange} onBlur={handleBlur} />
-                        </Form.Group>
+                        <CustomField
+                            type="email"
+                            id="email"
+                            nameField="email"
+                            label="Email"
+                            placeholder="Ingresa tu email"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
 
                         { errors.email && <Error message={errors.email}></Error> }
 
@@ -53,12 +57,15 @@ const Login = ({ history }) => {
 
                     <Col sm={12} md={6} lg={6} xl={6}>
 
-                        <Form.Group controlId="password">
-                            <Form.Label className="text-left">
-                                Contraseña
-                            </Form.Label>
-                            <Form.Control type="password" placeholder="Ingresa tu contraseña" name="password" onChange={handleChange} onBlur={handleBlur} />
-                        </Form.Group>
+                        <CustomField
+                            type="password"
+                            id="password"
+                            nameField="password"
+                            label="Contraseña"
+                            placeholder="Ingresa tu contraseña"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
 
                         { errors.password && <Error message={errors.password}></Error> }
 
@@ -70,9 +77,11 @@ const Login = ({ history }) => {
 
                 <Row className="justify-content-center">
                     <Col sm={12} md={6} lg={6} xl={6}>
-                        <Button className="btn btn-block mt-2" variant="primary" type="submit">
-                            Iniciar sesión
-                        </Button>
+                        <CustomButton
+                            variant="primary"
+                            type="submit"
+                            buttonValue="Iniciar sesión"
+                        />
                     </Col>
                 </Row>
             </Form>

@@ -1,53 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState }  from 'react';
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import firebase from '../../firebase';
 import useValidation from "../../hooks/useValidation";
-import validateRegistration from "../../validations/registerValidation";
+import contactValidation from "../../validations/contactValidation";
 import Title from "../../ui/Title/Title";
 import Error from "../../ui/Error/Error";
-import { CustomField, CustomButton } from "../../ui/Form/Form";
+import { CustomButton, CustomField, CustomTextArea } from "../../ui/Form/Form";
 
 const initialState = {
     nombre : '',
+    apellido : '',
     email : '',
-    password : '',
+    mensaje : ''
 }
 
-const Register = ({ history }) => {
+const Contact = ({ history }) => {
 
     const [ error, setError ] = useState(false);
 
-    const { data, errors, handleSubmit, handleChange, handleBlur } = useValidation( initialState, validateRegistration, makeUser);
+    const { data, errors, handleSubmit, handleChange, handleBlur } = useValidation( initialState, contactValidation, contact);
 
-    const { nombre, email, password } = data;
+    const { nombre, apellido, email, mensaje } = data;
 
-    async function makeUser() {
+    async function contact() {
         try {
-            await firebase.registerNewUser(nombre, email, password);
-            this.prop.history.push('/');
+            // await firebase.loginUser(email, password);
+            // history.push('/');
         } catch (error) {
-            console.log('Error al crear usuario', error.message);
+            console.error('Hubo un error al enviar el mensaje', error.message);
             setError(error.message);
         }
-
     }
 
     return (
         <Container>
 
-            <Title title="Crear cuenta" />
+            <Title title="Escribinos tu consulta" />
 
             <Form onSubmit={handleSubmit} noValidate>
 
                 <Row>
 
-                    <Col>
+                    <Col sm={12} md={6} lg={6} xl={6}>
+
                         <CustomField
                             type="text"
                             id="nombre"
                             nameField="nombre"
                             label="Nombre"
-                            value={nombre}
                             placeholder="Ingresa tu nombre"
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -57,13 +57,33 @@ const Register = ({ history }) => {
 
                     </Col>
 
-                    <Col>
+                    <Col sm={12} md={6} lg={6} xl={6}>
+
+                        <CustomField
+                            type="text"
+                            id="apellido"
+                            nameField="apellido"
+                            label="Apellido"
+                            placeholder="Ingresa tu apellido"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+
+                        { errors.apellido && <Error message={errors.apellido}></Error> }
+
+                    </Col>
+
+                </Row>
+
+                <Row>
+
+                    <Col sm={12} md={12} lg={12} xl={12}>
+
                         <CustomField
                             type="email"
                             id="email"
                             nameField="email"
                             label="Email"
-                            value={email}
                             placeholder="Ingresa tu email"
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -76,23 +96,24 @@ const Register = ({ history }) => {
                 </Row>
 
                 <Row>
-                    <Col>
-                        <CustomField
-                            type="password"
-                            id="password"
-                            nameField="password"
-                            label="Contraseña"
-                            value={password}
-                            placeholder="Ingresa tu contraseña"
+
+                    <Col sm={12} md={12} lg={12} xl={12}>
+
+                        <CustomTextArea
+                            id="mensaje"
+                            nameField="mensaje"
+                            label="Mensaje"
+                            rows="6"
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />
 
-                        { errors.password && <Error message={errors.password}></Error> }
+                        { errors.mensaje && <Error message={errors.mensaje}></Error> }
 
                         { error && <Error>{error}</Error> }
 
                     </Col>
+
                 </Row>
 
                 <Row className="justify-content-center">
@@ -100,7 +121,7 @@ const Register = ({ history }) => {
                         <CustomButton
                             variant="primary"
                             type="submit"
-                            buttonValue="Crear cuenta"
+                            buttonValue="Enviar mensaje"
                         />
                     </Col>
                 </Row>
@@ -110,4 +131,4 @@ const Register = ({ history }) => {
     )
 }
 
-export default Register;
+export default Contact;

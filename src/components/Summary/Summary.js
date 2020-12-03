@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import CartContext from "../../globals/cartContext";
 
-const Checkout = () => {
+const Summary = () => {
     const [totalPrice, setTotalPrice] = useState(0);
     const { cart } = useContext(CartContext);
 
@@ -28,7 +28,7 @@ const Checkout = () => {
                     <h5 className="card-title">
                         Total: ${totalPrice}
                     </h5>
-                    <Link to="/" className="btn btn-primary">
+                    <Link to="/checkout" className="btn btn-primary">
                         Confirmar compra
                     </Link>
                 </div>
@@ -37,4 +37,4 @@ const Checkout = () => {
     );
 };
 
-export default Checkout;
+export default Summary;

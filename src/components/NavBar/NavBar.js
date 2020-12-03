@@ -28,6 +28,11 @@ class NavBar extends Component {
                     </Link>
                 </li>
                 <li>
+                    <Link to="/contact">
+                        Contacto
+                    </Link>
+                </li>
+                <li>
                     <Link to="/cart">
                         <CartIcon />
                     </Link>
