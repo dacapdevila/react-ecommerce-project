@@ -8,9 +8,7 @@ const ItemDetailContainer = ({ product }) => {
 
     const getProduct = () => {
         return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(product);
-            }, 3000);
+            resolve(product);
         });
     };
 

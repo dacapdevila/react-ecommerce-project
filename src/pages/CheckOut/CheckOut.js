@@ -92,8 +92,10 @@ const CheckOut = () => {
             setOrderId(id);
             clean();
         } catch (err) {
-            console.log("Ha ocurrido un error creando la orden de compra");
+            console.error('Ha ocurrido un error creando la orden de compra', err.message);
+            setError(err.message);
         }
+
         updateDataFirebase();
     }
 

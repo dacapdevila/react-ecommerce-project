@@ -42,7 +42,7 @@ const ItemDetail = ({ product }) => {
             />
             <Card className="mb-5">
                 <Card.Footer>
-                    <Button color="primary" onClick={handleClick}>
+                    <Button variant="outline-primary" onClick={handleClick}>
                         Comprar {quantity} {quantity > 1 ? 'unidades' : 'unidad' } de {product.title}
                     </Button>
                 </Card.Footer>

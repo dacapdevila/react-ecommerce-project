@@ -1,18 +1,21 @@
 import React, { useState }  from 'react';
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import firebase from '../../firebase';
 import useValidation from "../../hooks/useValidation";
 import loginValidation from "../../validations/loginValidation";
 import Title from "../../ui/Title/Title";
 import Error from "../../ui/Error/Error";
 import { CustomButton, CustomField } from "../../ui/Form/Form";
+import { toast, ToastContainer } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 
 const initialState = {
     email : '',
     password : '',
 }
 
-const Login = ({ history }) => {
+
+const Login = () => {
 
     const [ error, setError ] = useState(false);
 
@@ -20,18 +23,48 @@ const Login = ({ history }) => {
 
     const { email, password } = data;
 
+    const [ sent, setSent ] = useState(0);
+
+    const history = useHistory();
+
     async function login() {
         try {
-            await firebase.loginUser(email, password);
-            history.push('/');
+            const usuario = await firebase.loginUser(email, password);
+
+            toast.success('🦄 Iniciaste sesión correctamente, en breve serás redirigido', {
+                position: "top-right",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            console.log(usuario);
+            setSent(1);
+            setTimeout( () => {
+                history.push("/")
+            }, 2500);
         } catch (error) {
             console.error('Hubo un error al iniciar sesión', error.message);
             setError(error.message);
+            toast.error(error.message, {
+                position: "top-right",
+                autoClose: 3500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setSent(0);
         }
     }
 
     return (
         <Container>
+
+            <ToastContainer />
 
             <Title title="Iniciar sesión" />
 
@@ -69,10 +102,14 @@ const Login = ({ history }) => {
 
                         { errors.password && <Error message={errors.password}></Error> }
 
-                        { error && <Error>{error}</Error> }
-
                     </Col>
 
+                </Row>
+
+                <Row>
+                    <Col sm={12} md={12} lg={12} xl={12}>
+                        { error && <Error message={"Hubo un error"}></Error> }
+                    </Col>
                 </Row>
 
                 <Row className="justify-content-center">
@@ -81,6 +118,7 @@ const Login = ({ history }) => {
                             variant="primary"
                             type="submit"
                             buttonValue="Iniciar sesión"
+                            disabled={ !email || !password ||sent !== 0 }
                         />
                     </Col>
                 </Row>

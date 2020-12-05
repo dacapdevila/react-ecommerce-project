@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RemoveIcon from "@material-ui/icons/Remove";
 import AddIcon from "@material-ui/icons/Add";
-import './ItemCount.css';
 import {Button, Card} from "react-bootstrap";
-import {Link} from "react-router-dom";
 
 const ItemCount = ({ initial, min, max, setQuantity }) => {
     const [counter, setCounter] = useState(initial);
@@ -23,13 +21,13 @@ const ItemCount = ({ initial, min, max, setQuantity }) => {
     return (
         <Card>
             <Card.Body>
-                <Button variant="outline-primary" onClick={handleDecrement}>
+                <Button variant="outline-secondary" onClick={handleDecrement}>
                     <RemoveIcon/>
                 </Button>
-                <Button variant="outline-info">
+                <Button variant="dark" disabled={true}>
                     { counter }
                 </Button>
-                <Button variant="outline-primary" onClick={handleIncrement}>
+                <Button variant="outline-secondary" onClick={handleIncrement}>
                     <AddIcon/>
                 </Button>
             </Card.Body>

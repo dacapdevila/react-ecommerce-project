@@ -1,13 +1,37 @@
 import React, { useEffect, useContext } from "react";
 import CartContext from "../../globals/cartContext";
 import { Container, Row, Col, Table } from 'react-bootstrap';
-
+import Swal from "sweetalert2";
 
 const CartTable = () => {
     const { cart, setCart, setQnt } = useContext(CartContext);
 
     const deleteProduct = (index) => {
         setCart(cart.filter((product, i) => i !== index));
+    }
+
+    const confirmDelete = (index) => {
+        return (
+            Swal.fire({
+                title: '¿Estás seguro de eliminar el producto del carrito?',
+                text: "Podrás agregar el producto nuevamente en caso de error.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar',
+                cancelButtonText: 'No, cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteProduct(index);
+                    Swal.fire(
+                        'Eliminado',
+                        'El producto se quito correctamente de tu carrito.',
+                        'success'
+                    )
+                }
+            })
+        )
     };
 
     useEffect(() => {
@@ -67,7 +91,7 @@ const CartTable = () => {
                                 <td>
                                     <button
                                         className="btn btn-danger"
-                                        onClick={() => deleteProduct(index)}
+                                        onClick={() => confirmDelete(index)}
                                     >
                                         Eliminar producto del carrito
                                     </button>
