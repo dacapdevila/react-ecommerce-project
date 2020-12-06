@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Col, Container, Form, Row } from "react-bootstrap";
-import firebase from "../../firebase";
 import CartContext from "../../globals/cartContext";
+import { FirebaseContext } from '../../firebase';
 import Title from "../../ui/Title/Title";
 import Error from "../../ui/Error/Error";
 import { CustomButton, CustomField, CustomButtonWithLink } from "../../ui/Form/Form";
@@ -18,6 +18,7 @@ const initialState = {
 const CheckOut = () => {
 
     const { cart, setCart, setQnt } = useContext(CartContext);
+    const { firebase } = useContext( FirebaseContext );
     const [ error, setError ] = useState(false);
     const [ orderId, setOrderId ] = useState(null);
     const [ sent, setSent ] = useState(false);
@@ -26,32 +27,29 @@ const CheckOut = () => {
 
     const { name, phone, email, email_confirmation } = data;
 
-    const updateDataFirebase = async () => {
-        const db = firebase.db;
-        const itemsToUpdate = db.collection("items").where(
-            firebase.firestore.FieldPath.documentId(),
-            "in",
-            cart.map((i) => i.id)
-        );
+    const updateStock = (items) => {
+        items.forEach(product => {
+            const item = firebase.db.collection('products').doc(product.id);
 
-        const query = await itemsToUpdate.get();
-        const batch = db.batch();
-
-        const outOfStock = [];
-        query.docs.forEach((docSnapShot, idx) => {
-            if (docSnapShot.data().stock >= cart[idx].quantity) {
-                batch.update(docSnapShot.ref, {
-                    stock: docSnapShot.data().stock - cart[idx].quantity,
-                });
-            } else {
-                outOfStock.push({ ...docSnapShot.data(), id: docSnapShot.id });
-            }
+            item.get().then(doc => {
+                if(!doc.exists){
+                    setError("No existe el producto.");
+                    return false;
+                }
+                const stock = doc.data().stock;
+                if(product.quantity > stock){
+                    setError("Stock insuficiente.");
+                    return false;
+                }
+                item.update({stock: stock - product.quantity});
+            }).catch((error) => {
+                console.log("Error: ", error);
+                return false;
+            }).finally(() => {
+            })
         });
-
-        if (outOfStock.length === 0) {
-            await batch.commit();
-        }
-    };
+        return true;
+    }
 
     async function createOrder() {
         setSent(true);
@@ -73,12 +71,11 @@ const CheckOut = () => {
             0
         );
 
-        const db = firebase.db;
-        const orders = db.collection("orders");
+        const orders = firebase.db.collection("orders");
         const newOrder = {
             userInfo,
             items,
-            date: firebase.firestore.Timestamp.fromDate(new Date()),
+            date: new Date(),
             total: totalPrice,
         };
 
@@ -96,7 +93,7 @@ const CheckOut = () => {
             setError(err.message);
         }
 
-        updateDataFirebase();
+        updateStock(items);
     }
 
     if ( orderId ) {

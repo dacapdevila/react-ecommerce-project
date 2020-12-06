@@ -1,11 +1,12 @@
-import React, { useState }  from 'react';
+import React, {useContext, useState} from 'react';
 import { Container, Row, Col, Form } from "react-bootstrap";
-import firebase from '../../firebase';
+import { FirebaseContext } from '../../firebase';
 import useValidation from "../../hooks/useValidation";
 import contactValidation from "../../validations/contactValidation";
 import Title from "../../ui/Title/Title";
 import Error from "../../ui/Error/Error";
 import { CustomButton, CustomField, CustomTextArea } from "../../ui/Form/Form";
+import { toast } from "react-toastify";
 
 const initialState = {
     nombre : '',
@@ -14,21 +15,45 @@ const initialState = {
     mensaje : ''
 }
 
-const Contact = ({ history }) => {
+const Contact = () => {
 
     const [ error, setError ] = useState(false);
 
-    const { data, errors, handleSubmit, handleChange, handleBlur } = useValidation( initialState, contactValidation, contact);
+    const { data, errors, handleSubmit, handleChange, handleBlur } = useValidation( initialState, contactValidation, saveContact);
 
     const { nombre, apellido, email, mensaje } = data;
 
-    async function contact() {
+    const [ sent, setSent ] = useState(0);
+
+    const { firebase } = useContext( FirebaseContext );
+
+    async function saveContact() {
         try {
-            // await firebase.loginUser(email, password);
-            // history.push('/');
+            const contact = { nombre, apellido, email, mensaje, created_at: Date.now() }
+            firebase.db.collection('contacts').add(contact);
+            toast.success('🦄 Mensaje recibido correctamente!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setSent(1);
         } catch (error) {
             console.error('Hubo un error al enviar el mensaje', error.message);
             setError(error.message);
+            toast.error(error.message, {
+                position: "top-right",
+                autoClose: 3500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setSent(0);
         }
     }
 
@@ -48,6 +73,7 @@ const Contact = ({ history }) => {
                             id="nombre"
                             nameField="nombre"
                             label="Nombre"
+                            value={nombre}
                             placeholder="Ingresa tu nombre"
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -64,6 +90,7 @@ const Contact = ({ history }) => {
                             id="apellido"
                             nameField="apellido"
                             label="Apellido"
+                            value={apellido}
                             placeholder="Ingresa tu apellido"
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -84,6 +111,7 @@ const Contact = ({ history }) => {
                             id="email"
                             nameField="email"
                             label="Email"
+                            value={email}
                             placeholder="Ingresa tu email"
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -110,7 +138,15 @@ const Contact = ({ history }) => {
 
                         { errors.mensaje && <Error message={errors.mensaje}></Error> }
 
-                        { error && <Error>{error}</Error> }
+                    </Col>
+
+                </Row>
+
+                <Row>
+
+                    <Col sm={12} md={12} lg={12} xl={12}>
+
+                        { error && <Error message={error}></Error> }
 
                     </Col>
 
@@ -122,6 +158,7 @@ const Contact = ({ history }) => {
                             variant="primary"
                             type="submit"
                             buttonValue="Enviar mensaje"
+                            disabled={ !nombre || !apellido || !email || !mensaje || sent !== 0 }
                         />
                     </Col>
                 </Row>

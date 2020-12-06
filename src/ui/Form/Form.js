@@ -31,13 +31,13 @@ export const CustomButtonWithLink = ({ variant, type, to, buttonValue, disabled 
     );
 }
 
-export const CustomTextArea = ({ id, label, rows }) => {
+export const CustomTextArea = ({ id, label, rows, nameField, value, onChange, onBlur }) => {
     return (
         <Form.Group controlId={id}>
             <Form.Label>
                 {label}
             </Form.Label>
-            <Form.Control as="textarea" rows={rows} />
+            <Form.Control as="textarea" rows={rows} name={nameField} value={value} onChange={onChange} onBlur={onBlur} />
         </Form.Group>
     );
 }

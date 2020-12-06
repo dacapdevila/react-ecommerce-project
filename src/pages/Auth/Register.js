@@ -6,7 +6,7 @@ import validateRegistration from "../../validations/registerValidation";
 import Title from "../../ui/Title/Title";
 import Error from "../../ui/Error/Error";
 import { CustomField, CustomButton } from "../../ui/Form/Form";
-import {toast, ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { useHistory } from 'react-router-dom';
 
 const initialState = {
