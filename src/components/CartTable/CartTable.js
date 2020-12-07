@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import CartContext from "../../globals/cartContext";
 import { Container, Row, Col, Table } from 'react-bootstrap';
 import Swal from "sweetalert2";
+import Title from "../../ui/Title/Title";
 
 const CartTable = () => {
     const { cart, setCart, setQnt } = useContext(CartContext);
@@ -44,13 +45,9 @@ const CartTable = () => {
 
     return (
         <Container>
-            <Row className="justify-content-center">
-                <Col>
-                    <h1>
-                        Carrito
-                    </h1>
-                </Col>
-            </Row>
+            
+            <Title title="Carrito" />
+
             <Row className="justify-content-center">
                 <Col>
                     <Table striped bordered hover>

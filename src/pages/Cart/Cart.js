@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import CartContext from "../../globals/cartContext";
 import CartTable from "../../components/CartTable/CartTable";
 import Summary from "../../components/Summary/Summary";
-import CartContext from "../../globals/cartContext";
+import CartMessage from "../../components/CartMessage/CartMessage";
 
 const Cart = () => {
     const { cart } = useContext(CartContext);
@@ -26,7 +27,7 @@ const Cart = () => {
     return (
         <div className="cart">
             { cart.length === 0 ? (
-                messageConditional
+                <CartMessage />
             ) : (
                 <div>
                     <CartTable />
