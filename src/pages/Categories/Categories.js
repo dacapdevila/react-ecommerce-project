@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import ItemDetail from "../../components/ItemDetail/ItemDetail";
 import Loading from "../../components/Loading/Loading";
 import firebase from "../../firebase";
+import {Container, Row, Col} from "react-bootstrap";
+import Title from "../../ui/Title/Title";
 
 const Categories = () => {
     const [products, setProducts] = useState([]);
@@ -37,20 +39,23 @@ const Categories = () => {
     }, [categoryId]);
 
     return (
-        <div className="categories">
-            <h1>Categoria {categoryId}</h1>
+        <Container>
+            <Title title={`Categoria ${categoryId}`} />
             {
                 loading ? (
-                    <Loading text="Cargando productos" />
+                    <Loading text="Cargando productos de la categoria" />
                 ) : (
-                    <div className="categories_list">
+                    <Row>
                         {products.map((product) => {
-                            return <ItemDetail product={product} key={product.id} />;
+                            return <Col sm={12} md={4} lg={4} xl={4}>
+                                        <ItemDetail product={product} key={product.id} />;
+                                    </Col>
                         })}
-                    </div>
+
+                    </Row>
                 )
             }
-        </div>
+        </Container>
     );
 }
 

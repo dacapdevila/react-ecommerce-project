@@ -4,8 +4,9 @@ import { Container, Row, Col, Table } from 'react-bootstrap';
 import Swal from "sweetalert2";
 import Title from "../../ui/Title/Title";
 
-const CartTable = () => {
+const CartTable = ({order, title}) => {
     const { cart, setCart, setQnt } = useContext(CartContext);
+    const items = order.items;
 
     const deleteProduct = (index) => {
         setCart(cart.filter((product, i) => i !== index));
@@ -36,17 +37,25 @@ const CartTable = () => {
     };
 
     useEffect(() => {
-        setQnt(
-            cart
-                .map((product) => product.quantity)
-                .reduce((total, valor) => total + valor)
-        );
+        if ( order === null ) {
+            setQnt(
+                cart
+                    .map((product) => product.quantity)
+                    .reduce((total, valor) => total + valor)
+            );
+        }
     }, [cart, setQnt]);
+
+    console.log('orden!!');
+    console.log(items);
+
+    console.log('caty!!');
+    console.log(cart);
 
     return (
         <Container>
-            
-            <Title title="Carrito" />
+
+            <Title title={title} />
 
             <Row className="justify-content-center">
                 <Col>
@@ -70,32 +79,58 @@ const CartTable = () => {
                             </th>
                         </tr>
                         </thead>
-                        <tbody>
-                        {cart.map((item, index) => (
-                            <tr key={index}>
-                                <th scope="row">
-                                    {item.quantity}
-                                </th>
-                                <td>
-                                    {item.name}
-                                </td>
-                                <td>
-                                    ${item.price}.-
-                                </td>
-                                <td>
-                                    ${item.quantity * item.price}.-
-                                </td>
-                                <td>
-                                    <button
-                                        className="btn btn-danger"
-                                        onClick={() => confirmDelete(index)}
-                                    >
-                                        Eliminar producto del carrito
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
+                        {
+                            Object.keys( cart ).length > 0 ? (
+                                <tbody>
+                                {cart.map((item, index) => (
+                                    <tr key={index}>
+                                        <th scope="row">
+                                            {item.quantity}
+                                        </th>
+                                        <td>
+                                            {item.name}
+                                        </td>
+                                        <td>
+                                            ${item.price}.-
+                                        </td>
+                                        <td>
+                                            ${item.quantity * item.price}.-
+                                        </td>
+                                        <td>
+                                            <button
+                                                className="btn btn-danger"
+                                                onClick={() => confirmDelete(index)}
+                                            >
+                                                Eliminar producto del carrito
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            ) : (
+                                <tbody>
+                                {items.map((item, index) => (
+                                    <tr key={index}>
+                                        <th scope="row">
+                                            {item.quantity}
+                                        </th>
+                                        <td>
+                                            {item.name}
+                                        </td>
+                                        <td>
+                                            ${item.subtotal}.-
+                                        </td>
+                                        <td>
+                                            ${item.quantity * item.subtotal}.-
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            )
+                        }
                     </Table>
                 </Col>
             </Row>

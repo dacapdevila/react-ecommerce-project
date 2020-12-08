@@ -13,7 +13,7 @@ const Cart = () => {
                 <CartMessage />
             ) : (
                 <div>
-                    <CartTable />
+                    <CartTable order="null" title="Carrito" />
                     <Summary />
                 </div>
             )}

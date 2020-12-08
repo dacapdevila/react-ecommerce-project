@@ -17,6 +17,7 @@ import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
 import Contact from "./pages/Contact/Contact";
 import CheckOut from "./pages/CheckOut/CheckOut";
+import Order from "./pages/Order/Order";
 
 function App() {
     const greeting = "Bienvenido a React Store :)";
@@ -50,6 +51,9 @@ function App() {
                             </Route>
                             <Route path="/login">
                                 <Login />
+                            </Route>
+                            <Route path="/order/:orderId">
+                                <Order />
                             </Route>
                             <Route path="/contact">
                                 <Contact />

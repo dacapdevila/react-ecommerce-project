@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Loading from "../Loading/Loading";
 import { Container, Row, Col } from 'react-bootstrap';
 import firebase from "../../firebase";
+import Loading from "../Loading/Loading";
 import Categories from "../Categories/Categories";
 import Products from "../Products/Products";
 
@@ -34,7 +34,7 @@ const ItemList = () => {
     return (
         <Container fluid>
             {loading ? (
-                <Loading text=""></Loading>
+                <Loading text="" />
             ) : (
                 <Row>
                     <Col md={2} lg={2} xl={2}>
