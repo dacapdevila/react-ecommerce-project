@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, {useState, useContext, Fragment} from 'react';
 import { Col, Container, Form, Row } from "react-bootstrap";
 import CartContext from "../../globals/cartContext";
 import { FirebaseContext } from '../../firebase';
@@ -18,7 +18,7 @@ const initialState = {
 const CheckOut = () => {
 
     const { cart, setCart, setQnt } = useContext(CartContext);
-    const { firebase } = useContext( FirebaseContext );
+    const { firebase, user } = useContext( FirebaseContext );
     const [ error, setError ] = useState(false);
     const [ orderId, setOrderId ] = useState(null);
     const [ sent, setSent ] = useState(false);
@@ -123,93 +123,188 @@ const CheckOut = () => {
     }
 
     return (
-        <Container>
+        <Fragment>
+            {
+                user === null ? (
+                    <Container>
+                        <Title title="Completa los siguientes datos para confirmar la compra" />
 
-            <Title title="Completa los siguientes datos para confirmar la compra" />
+                        <Form onSubmit={handleSubmit} noValidate>
 
-            <Form onSubmit={handleSubmit} noValidate>
+                            <Row>
 
-                <Row>
+                                <Col sm={12} md={6} lg={6} xl={6}>
 
-                    <Col sm={12} md={6} lg={6} xl={6}>
+                                    <CustomField
+                                        type="text"
+                                        id="name"
+                                        nameField="name"
+                                        label="Nombre y Apellido"
+                                        placeholder="Ingresa tu nombre"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
 
-                        <CustomField
-                            type="text"
-                            id="name"
-                            nameField="name"
-                            label="Nombre y Apellido"
-                            placeholder="Ingresa tu nombre"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                        />
+                                    { errors.name && <Error message={errors.name}></Error> }
 
-                        { errors.name && <Error message={errors.name}></Error> }
+                                </Col>
 
-                    </Col>
+                                <Col sm={12} md={6} lg={6} xl={6}>
 
-                    <Col sm={12} md={6} lg={6} xl={6}>
+                                    <CustomField
+                                        type="text"
+                                        id="phone"
+                                        nameField="phone"
+                                        label="Teléfono"
+                                        placeholder="Ingresa tu teléfono"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
 
-                        <CustomField
-                            type="text"
-                            id="phone"
-                            nameField="phone"
-                            label="Teléfono"
-                            placeholder="Ingresa tu teléfono"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                        />
+                                    { errors.phone && <Error message={errors.phone}></Error> }
 
-                        { errors.phone && <Error message={errors.phone}></Error> }
+                                </Col>
 
-                    </Col>
+                                <Col sm={12} md={6} lg={6} xl={6}>
 
-                    <Col sm={12} md={6} lg={6} xl={6}>
+                                    <CustomField
+                                        type="email"
+                                        id="email"
+                                        nameField="email"
+                                        label="Email"
+                                        placeholder="Ingresa tu email"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
 
-                        <CustomField
-                            type="email"
-                            id="email"
-                            nameField="email"
-                            label="Email"
-                            placeholder="Ingresa tu email"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                        />
+                                    { errors.email && <Error message={errors.email}></Error> }
 
-                        { errors.email && <Error message={errors.email}></Error> }
+                                </Col>
 
-                    </Col>
+                                <Col sm={12} md={6} lg={6} xl={6}>
 
-                    <Col sm={12} md={6} lg={6} xl={6}>
+                                    <CustomField
+                                        type="email"
+                                        id="email_confirmation"
+                                        nameField="email_confirmation"
+                                        label="Reingresa tu email"
+                                        placeholder="Reingresa tu email"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
 
-                        <CustomField
-                            type="email"
-                            id="email_confirmation"
-                            nameField="email_confirmation"
-                            label="Reingresa tu email"
-                            placeholder="Reingresa tu email"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                        />
+                                    { errors.email_confirmation && <Error message={errors.email_confirmation}></Error> }
 
-                        { errors.email_confirmation && <Error message={errors.email_confirmation}></Error> }
+                                    { error && <Error>{error}</Error> }
 
-                        { error && <Error>{error}</Error> }
+                                </Col>
+                            </Row>
 
-                    </Col>
-                </Row>
+                            <Row className="justify-content-center">
+                                <Col sm={12} md={6} lg={6} xl={6}>
+                                    <CustomButton
+                                        variant="primary"
+                                        type="submit"
+                                        buttonValue="Confirmar"
+                                        disabled={ !name || !phone || !email || email !== email_confirmation || sent }
+                                    />
+                                </Col>
+                            </Row>
+                        </Form>
+                    </Container>
+                ) : (
+                    <Container>
+                        <Title title={`${user.displayName}, estás por comprar como ${user.email}`} />
 
-                <Row className="justify-content-center">
-                    <Col sm={12} md={6} lg={6} xl={6}>
-                        <CustomButton
-                            variant="primary"
-                            type="submit"
-                            buttonValue="Confirmar"
-                            disabled={ !name || !phone || !email || email !== email_confirmation || sent }
-                        />
-                    </Col>
-                </Row>
-            </Form>
-        </Container>
+                        <Form onSubmit={handleSubmit} noValidate>
+
+                            <Row>
+
+                                <Col sm={12} md={6} lg={6} xl={6}>
+
+                                    <CustomField
+                                        type="text"
+                                        id="name"
+                                        nameField="name"
+                                        value={user.displayName}
+                                        label="Nombre y Apellido"
+                                        placeholder="Ingresa tu nombre"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+
+                                    { errors.name && <Error message={errors.name}></Error> }
+
+                                </Col>
+
+                                <Col sm={12} md={6} lg={6} xl={6}>
+
+                                    <CustomField
+                                        type="text"
+                                        id="phone"
+                                        nameField="phone"
+                                        label="Teléfono"
+                                        placeholder="Ingresa tu teléfono"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+
+                                    { errors.phone && <Error message={errors.phone}></Error> }
+
+                                </Col>
+
+                                <Col sm={12} md={6} lg={6} xl={6}>
+
+                                    <CustomField
+                                        type="email"
+                                        id="email"
+                                        nameField="email"
+                                        value={user.email}
+                                        label="Email"
+                                        placeholder="Ingresa tu email"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+
+                                    { errors.email && <Error message={errors.email}></Error> }
+
+                                </Col>
+
+                                <Col sm={12} md={6} lg={6} xl={6}>
+
+                                    <CustomField
+                                        type="email"
+                                        id="email_confirmation"
+                                        nameField="email_confirmation"
+                                        value={user.email}
+                                        label="Reingresa tu email"
+                                        placeholder="Reingresa tu email"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+
+                                    { errors.email_confirmation && <Error message={errors.email_confirmation}></Error> }
+
+                                    { error && <Error>{error}</Error> }
+
+                                </Col>
+                            </Row>
+
+                            <Row className="justify-content-center">
+                                <Col sm={12} md={6} lg={6} xl={6}>
+                                    <CustomButton
+                                        variant="primary"
+                                        type="submit"
+                                        buttonValue="Confirmar"
+                                        disabled={ !name || !phone || !email || email !== email_confirmation || sent }
+                                    />
+                                </Col>
+                            </Row>
+                        </Form>
+                    </Container>
+                )
+            }
+        </Fragment>
     );
 
 }
