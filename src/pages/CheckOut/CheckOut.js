@@ -123,188 +123,100 @@ const CheckOut = () => {
     }
 
     return (
-        <Fragment>
-            {
-                user === null ? (
-                    <Container>
-                        <Title title="Completa los siguientes datos para confirmar la compra" />
+        <Container>
+            {user === null ? (
 
-                        <Form onSubmit={handleSubmit} noValidate>
+                <Title title="Completa los siguientes datos para confirmar la compra"/>
 
-                            <Row>
+            ) : (
+                <Title title={`${user.displayName}, estás por comprar como ${user.email}`}/>
 
-                                <Col sm={12} md={6} lg={6} xl={6}>
-
-                                    <CustomField
-                                        type="text"
-                                        id="name"
-                                        nameField="name"
-                                        label="Nombre y Apellido"
-                                        placeholder="Ingresa tu nombre"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    />
-
-                                    { errors.name && <Error message={errors.name}></Error> }
-
-                                </Col>
-
-                                <Col sm={12} md={6} lg={6} xl={6}>
-
-                                    <CustomField
-                                        type="text"
-                                        id="phone"
-                                        nameField="phone"
-                                        label="Teléfono"
-                                        placeholder="Ingresa tu teléfono"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    />
-
-                                    { errors.phone && <Error message={errors.phone}></Error> }
-
-                                </Col>
-
-                                <Col sm={12} md={6} lg={6} xl={6}>
-
-                                    <CustomField
-                                        type="email"
-                                        id="email"
-                                        nameField="email"
-                                        label="Email"
-                                        placeholder="Ingresa tu email"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    />
-
-                                    { errors.email && <Error message={errors.email}></Error> }
-
-                                </Col>
-
-                                <Col sm={12} md={6} lg={6} xl={6}>
-
-                                    <CustomField
-                                        type="email"
-                                        id="email_confirmation"
-                                        nameField="email_confirmation"
-                                        label="Reingresa tu email"
-                                        placeholder="Reingresa tu email"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    />
-
-                                    { errors.email_confirmation && <Error message={errors.email_confirmation}></Error> }
-
-                                    { error && <Error>{error}</Error> }
-
-                                </Col>
-                            </Row>
-
-                            <Row className="justify-content-center">
-                                <Col sm={12} md={6} lg={6} xl={6}>
-                                    <CustomButton
-                                        variant="primary"
-                                        type="submit"
-                                        buttonValue="Confirmar"
-                                        disabled={ !name || !phone || !email || email !== email_confirmation || sent }
-                                    />
-                                </Col>
-                            </Row>
-                        </Form>
-                    </Container>
-                ) : (
-                    <Container>
-                        <Title title={`${user.displayName}, estás por comprar como ${user.email}`} />
-
-                        <Form onSubmit={handleSubmit} noValidate>
-
-                            <Row>
-
-                                <Col sm={12} md={6} lg={6} xl={6}>
-
-                                    <CustomField
-                                        type="text"
-                                        id="name"
-                                        nameField="name"
-                                        value={user.displayName}
-                                        label="Nombre y Apellido"
-                                        placeholder="Ingresa tu nombre"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    />
-
-                                    { errors.name && <Error message={errors.name}></Error> }
-
-                                </Col>
-
-                                <Col sm={12} md={6} lg={6} xl={6}>
-
-                                    <CustomField
-                                        type="text"
-                                        id="phone"
-                                        nameField="phone"
-                                        label="Teléfono"
-                                        placeholder="Ingresa tu teléfono"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    />
-
-                                    { errors.phone && <Error message={errors.phone}></Error> }
-
-                                </Col>
-
-                                <Col sm={12} md={6} lg={6} xl={6}>
-
-                                    <CustomField
-                                        type="email"
-                                        id="email"
-                                        nameField="email"
-                                        value={user.email}
-                                        label="Email"
-                                        placeholder="Ingresa tu email"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    />
-
-                                    { errors.email && <Error message={errors.email}></Error> }
-
-                                </Col>
-
-                                <Col sm={12} md={6} lg={6} xl={6}>
-
-                                    <CustomField
-                                        type="email"
-                                        id="email_confirmation"
-                                        nameField="email_confirmation"
-                                        value={user.email}
-                                        label="Reingresa tu email"
-                                        placeholder="Reingresa tu email"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    />
-
-                                    { errors.email_confirmation && <Error message={errors.email_confirmation}></Error> }
-
-                                    { error && <Error>{error}</Error> }
-
-                                </Col>
-                            </Row>
-
-                            <Row className="justify-content-center">
-                                <Col sm={12} md={6} lg={6} xl={6}>
-                                    <CustomButton
-                                        variant="primary"
-                                        type="submit"
-                                        buttonValue="Confirmar"
-                                        disabled={ !name || !phone || !email || email !== email_confirmation || sent }
-                                    />
-                                </Col>
-                            </Row>
-                        </Form>
-                    </Container>
-                )
+            )
             }
-        </Fragment>
+
+            <Form onSubmit={handleSubmit} noValidate>
+
+                <Row>
+
+                    <Col sm={12} md={6} lg={6} xl={6}>
+
+                        <CustomField
+                            type="text"
+                            id="name"
+                            nameField="name"
+                            label="Nombre y Apellido"
+                            placeholder="Ingresa tu nombre"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+
+                        { errors.name && <Error message={errors.name}></Error> }
+
+                    </Col>
+
+                    <Col sm={12} md={6} lg={6} xl={6}>
+
+                        <CustomField
+                            type="text"
+                            id="phone"
+                            nameField="phone"
+                            label="Teléfono"
+                            placeholder="Ingresa tu teléfono"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+
+                        { errors.phone && <Error message={errors.phone}></Error> }
+
+                    </Col>
+
+                    <Col sm={12} md={6} lg={6} xl={6}>
+
+                        <CustomField
+                            type="email"
+                            id="email"
+                            nameField="email"
+                            label="Email"
+                            placeholder="Ingresa tu email"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+
+                        { errors.email && <Error message={errors.email}></Error> }
+
+                    </Col>
+
+                    <Col sm={12} md={6} lg={6} xl={6}>
+
+                        <CustomField
+                            type="email"
+                            id="email_confirmation"
+                            nameField="email_confirmation"
+                            label="Reingresa tu email"
+                            placeholder="Reingresa tu email"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+
+                        { errors.email_confirmation && <Error message={errors.email_confirmation}></Error> }
+
+                        { error && <Error>{error}</Error> }
+
+                    </Col>
+                </Row>
+
+                <Row className="justify-content-center">
+                    <Col sm={12} md={6} lg={6} xl={6}>
+                        <CustomButton
+                            variant="primary"
+                            type="submit"
+                            buttonValue="Confirmar"
+                            disabled={ !name || !phone || !email || email !== email_confirmation || sent }
+                        />
+                    </Col>
+                </Row>
+            </Form>
+        </Container>
     );
 
 }

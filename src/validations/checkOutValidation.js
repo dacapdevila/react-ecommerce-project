@@ -2,6 +2,8 @@ export default function validarMensaje( data ) {
 
     let errors = {};
 
+    console.log(Object.keys( data ).length);
+
     if ( !data.name ) {
         errors.name = "El nombre y apellido son obligatorios.";
     }

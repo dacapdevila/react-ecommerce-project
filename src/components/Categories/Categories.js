@@ -39,7 +39,7 @@ const Categories = () => {
             ) : (
                 <ListGroup as="ul">
                     { cats.map( (category) => {
-                        return <ListGroup.Item as="li" variant="primary">
+                        return <ListGroup.Item as="li" key={category.id} variant="primary">
                             <Link to={`/categories/${category.id}`}>
                                 {category.description}
                             </Link>
