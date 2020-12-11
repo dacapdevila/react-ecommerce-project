@@ -10,9 +10,8 @@ const Categories = () => {
     const { firebase } = useContext( FirebaseContext );
     const [ cats, setCats] = useState([]);
 
-
     useEffect( () => {
-        const categoriesCollection = firebase.db.collection('categories').get().then( (querySnapshot) => {
+        firebase.db.collection('categories').get().then( (querySnapshot) => {
             if ( querySnapshot.size === 0 ) {
                 console.log('No hay resultados');
             }

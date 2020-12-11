@@ -1,4 +1,4 @@
-import React, {useState, useContext, Fragment} from 'react';
+import React, {useState, useContext} from 'react';
 import { Col, Container, Form, Row } from "react-bootstrap";
 import CartContext from "../../globals/cartContext";
 import { FirebaseContext } from '../../firebase';
