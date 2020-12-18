@@ -26,7 +26,7 @@ Se abrirá una ventana de navegación http://localhost:3000.
 ![image5](https://raw.githubusercontent.com/dacapdevila/react-ecommerce-project/master/src/assets/react_carrito_sin_productos.png)
 
 ## Demostración del circuito de compra
-![image4](https://raw.githubusercontent.com/dacapdevila/react-ecommerce-project/master/src/assets/circuito_compra.gif)
+![image6](https://raw.githubusercontent.com/dacapdevila/react-ecommerce-project/master/src/assets/circuito_compra.gif)
 
 ## Ver proyecto en vivo
 [Ver demo](https://react-ecommerce-project-deu49.ondigitalocean.app/).
