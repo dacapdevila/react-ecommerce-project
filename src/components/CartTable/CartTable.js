@@ -5,14 +5,15 @@ import Swal from "sweetalert2";
 import Title from "../../ui/Title/Title";
 
 const CartTable = ({order, title}) => {
-    const { cart, setCart, setQnt } = useContext(CartContext);
+    const { cart, setCart, qnt, setQnt } = useContext(CartContext);
     const items = order.items;
 
-    const deleteProduct = (index) => {
+    const deleteProduct = (item, index) => {
         setCart(cart.filter((product, i) => i !== index));
+        setQnt(qnt - item.quantity);
     }
 
-    const confirmDelete = (index) => {
+    const confirmDelete = (item, index) => {
         return (
             Swal.fire({
                 title: '¿Estás seguro de eliminar el producto del carrito?',
@@ -25,7 +26,7 @@ const CartTable = ({order, title}) => {
                 cancelButtonText: 'No, cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    deleteProduct(index);
+                    deleteProduct(item, index);
                     Swal.fire(
                         'Eliminado',
                         'El producto se quito correctamente de tu carrito.',
@@ -49,7 +50,7 @@ const CartTable = ({order, title}) => {
     console.log('orden!!');
     console.log(items);
 
-    console.log('caty!!');
+    console.log('cart!!');
     console.log(cart);
 
     return (
@@ -99,7 +100,7 @@ const CartTable = ({order, title}) => {
                                         <td>
                                             <button
                                                 className="btn btn-danger"
-                                                onClick={() => confirmDelete(index)}
+                                                onClick={() => confirmDelete(item, index)}
                                             >
                                                 Eliminar producto del carrito
                                             </button>
