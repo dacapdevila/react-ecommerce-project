@@ -1,12 +1,10 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyBGEsWRL9IDyW8E4-vwopOo7hU3wEVLEo0",
-    authDomain: "react-proyecto-final.firebaseapp.com",
-    databaseURL: "https://react-proyecto-final.firebaseio.com",
-    projectId: "react-proyecto-final",
-    storageBucket: "react-proyecto-final.appspot.com",
-    messagingSenderId: "82155633450",
-    appId: "1:82155633450:web:25ecc186c0cacb5db9bc53",
-    measurementId: "G-ZFX6RJW3XL"
+    apiKey: "AIzaSyAWO_osUh1WYdRL5ta_WO1fjP9YR51j1FY",
+    authDomain: "react-proyecto-coderhouse.firebaseapp.com",
+    projectId: "react-proyecto-coderhouse",
+    storageBucket: "react-proyecto-coderhouse.appspot.com",
+    messagingSenderId: "538385086042",
+    appId: "1:538385086042:web:cd8ab9b53b319e6ffc8a63"
 };
 
 export default firebaseConfig;
